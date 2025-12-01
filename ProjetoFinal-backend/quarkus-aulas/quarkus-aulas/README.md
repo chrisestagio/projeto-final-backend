@@ -60,3 +60,91 @@ If you want to learn more about building native executables, please consult <htt
 Easily start your REST Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+Serviços REST com comunicação HTTP (Rest Client)
+
+Este projeto contém dois microsserviços Java Quarkus, que se comunicam entre si via HTTP usando Rest Client.
+O objetivo é demonstrar um CRUD básico e um endpoint que consome dados de outro serviço.
+
+🚀 Tecnologias utilizadas
+
+Java 17
+
+Quarkus 3.x
+
+RESTEasy Reactive
+
+Rest Client
+
+Jackson (JSON)
+
+🧩 Arquitetura
+
+O sistema é dividido em dois serviços independentes:
+
+🔵 Serviço A – Aulas
+
+📌 Porta padrão: 8080
+
+Responsável por armazenar e gerenciar aulas.
+
+Endpoints:
+Método	Rota	Descrição
+
+POST	/aulas	Criar nova aula
+
+GET	/aulas	Listar todas as aulas
+
+GET	/aulas/{id}	Buscar aula por ID
+
+PUT	/aulas/{id}	Atualizar aula
+
+DELETE	/aulas/{id}	Deletar aula
+
+
+🟢 Serviço B – Pessoas
+
+📌 Porta padrão: 8081
+
+Gerencia pessoas e consome dados do serviço de Aulas.
+
+Endpoints CRUD:
+Método	Rota	Descrição
+
+POST	/pessoas	Criar nova pessoa
+
+GET	/pessoas	Listar pessoas
+
+GET	/pessoas/{id}	Buscar por ID
+
+PUT	/pessoas/{id}	Atualizar pessoa
+
+DELETE	/pessoas/{id}	Excluir pessoa
+
+⭐ Endpoint de comunicação entre serviços
+
+O serviço de pessoas chama o serviço de aulas:
+
+Método	Rota	Descrição
+GET	/pessoas/aulas	Retorna as aulas do outro serviço (via Rest Client)
+
+Este endpoint demonstra a comunicação HTTP exigida no trabalho.
+
+▶️ Como rodar o projeto
+1️⃣ Iniciar o serviço de aulas
+cd quarkus-aulas
+./mvnw quarkus:dev
+
+
+Acessível em:
+📌 http://localhost:8080/aulas
+
+2️⃣ Iniciar o serviço de pessoas
+cd quarkus-pessoas
+./mvnw quarkus:dev
+
+
+Acessível em:
+📌 http://localhost:8081/pessoas
+
+
